@@ -1,8 +1,24 @@
 NEWS AGGREGATOR
 
+npm init -y
+
 BACKEND:
 
+touch .env
+npm install express axios cors dotenv
+
+
 FRONTEND:
+
+npm install vite@latest client
+npm install react-scripts --save
+npm install react-router-dom
+
+
+RUN:
+
+BACKEND-node server.j
+FRONTEND-npm run dev
 
 GIT:
 INITIALLY :
@@ -28,6 +44,9 @@ FOR SMALL CHANGES:
 1) git add .
 2) git commit -m "Small change description"
 3) git push origin main
+
+
+
 
 
 
