@@ -34,16 +34,18 @@ INITIALLY :
 10) Creating a Pull Request (PR)
 Once you're satisfied with your changes, open a Pull Request to merge your branch into main:
 
-Go to the GitHub repository.
+(Go to the GitHub repository)
 Click "Compare & pull request" next to your branch.
 Add a title and description, then click "Create pull request."
+
+(in terminal)
 11) git checkout main
 12) git pull origin main
 
+TO VIEW CHANGES:
+1)git pull 
+
 FOR SMALL CHANGES:
-1) git pull (again goto first step)
-
-
 1) git add .
 2) git commit -m "Small change description"
 3) git push origin main
