@@ -41,9 +41,13 @@ Add a title and description, then click "Create pull request."
 12) git pull origin main
 
 FOR SMALL CHANGES:
+1) git pull (again goto first step)
+
+
 1) git add .
 2) git commit -m "Small change description"
 3) git push origin main
+
 
 
 
