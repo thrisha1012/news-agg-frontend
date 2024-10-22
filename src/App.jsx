@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import AllNews from "./components/AllNews";
 import TopHeadlines from "./components/TopHeadlines";
+import SearchResults from "./components/SearchResults";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import YouTubeNews from "./components/YouTubeNews";
@@ -19,6 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<AllNews />} />
           <Route path="/top-headlines/:category" element={<TopHeadlines />} />
+          <Route path="/search/:query" element={<SearchResults />} />
+
 
         </Routes>
         {/* <Cards />  */}

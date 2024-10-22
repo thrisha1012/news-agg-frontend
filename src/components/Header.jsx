@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
+import EverythingCard from './EverythingCard'; // Import EverythingCard
+import Loader from './Loader'; // Optional: to show loading state
 
 function Header() {
   const [active, setActive] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [theme, setTheme] = useState("light-theme");
+  const [searchTerm, setSearchTerm] = useState(""); // State for search input
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
-  // List of news categories
   const category = ["business", "entertainment", "general", "health", "science", "sports", "technology", "politics"];
 
-  // Apply theme on body
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
 
-  // Toggle between light and dark theme
   function toggleTheme() {
     setTheme(theme === "light-theme" ? "dark-theme" : "light-theme");
   }
+
+  // Function to handle search
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() === "") return; // Don't search if the input is empty
+    navigate(`/search/${encodeURIComponent(searchTerm)}`); // Navigate to search results page
+  };
 
   return (
     <header>
@@ -35,7 +43,6 @@ function Header() {
             </Link>
           </li>
 
-          {/* Top Headlines Dropdown */}
           <li className="dropdown-li">
             <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
               Top-Headlines <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
@@ -52,21 +59,33 @@ function Header() {
             </ul>
           </li>
 
-          {/* Theme Toggle Button */}
-          <li><Link className="no-underline font-semibold" to="#" onClick={() => { toggleTheme() }}>
-      
-      <input type="checkbox" class="checkbox" id="checkbox"/>
-         <label for="checkbox" class="checkbox-label">
-      <i class="fas fa-moon"></i>
-      <i class="fas fa-sun"></i>
-      <span class="ball"></span>
-      </label>
-      
+          {/* Search Bar */}
+          <li>
+            <form onSubmit={handleSearch} className="flex items-center">
+              <input
+                type="text"
+                className="search-bar"
+                placeholder="Search News"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button type="submit" className="search-btn">Search</button>
+            </form>
+          </li>
 
-      </Link></li>
+          {/* Theme Toggle Button */}
+          <li>
+            <Link className="no-underline font-semibold" to="#" onClick={toggleTheme}>
+              <input type="checkbox" className="checkbox" id="checkbox" />
+              <label htmlFor="checkbox" className="checkbox-label">
+                <i className="fas fa-moon"></i>
+                <i className="fas fa-sun"></i>
+                <span className="ball"></span>
+              </label>
+            </Link>
+          </li>
         </ul>
 
-        {/* Hamburger Menu */}
         <div className={active ? "ham-burger z-index-100 ham-open" : "ham-burger z-index-100"} onClick={() => setActive(!active)}>
           <span className="lines line-1"></span>
           <span className="lines line-2"></span>
