@@ -1,16 +1,15 @@
-import { useState } from "react";
+// src/App.js
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import AllNews from "./components/AllNews";
 import TopHeadlines from "./components/TopHeadlines";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import YouTubeNews from "./components/YouTubeNews";
-
-
+import './i18n'; // Import the i18n configuration
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   return (
     <div className="w-full">
       <BrowserRouter>
@@ -19,10 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AllNews />} />
           <Route path="/top-headlines/:category" element={<TopHeadlines />} />
-
         </Routes>
-        {/* <Cards />  */}
-        {/* <Footer />   */}
       </BrowserRouter>
     </div>
   );
