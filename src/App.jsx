@@ -8,7 +8,7 @@ import SearchResults from "./components/SearchResults";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import YouTubeNews from "./components/YouTubeNews";
-import './i18n'; // Import the i18n configuration
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const [count, setCount] = useState(0);

@@ -1,21 +1,16 @@
-// src/components/Header.js
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
-import EverythingCard from './EverythingCard'; // Import EverythingCard
-import Loader from './Loader'; // Optional: to show loading state
 
 function Header() {
-  const { t, i18n } = useTranslation();
   const [active, setActive] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [theme, setTheme] = useState("light-theme");
   const [searchTerm, setSearchTerm] = useState(""); // State for search input
   const navigate = useNavigate(); // Initialize useNavigate for navigation
 
-  const category = ["business", "entertainment", "general", "health", "science", "sports", "technology", "politics"];
+  const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology", "politics"];
 
   useEffect(() => {
     document.body.className = theme;
@@ -42,13 +37,13 @@ function Header() {
         <ul className={active ? "nav-ul flex gap-11 md:gap-14 xs:gap-12 lg:basis-3/6 md:basis-4/6 md:justify-end active" : "nav-ul flex gap-14 lg:basis-3/6 md:basis-4/6 justify-end"}>
           <li>
             <Link className="no-underline font-semibold" to="/" onClick={() => setActive(!active)}>
-              {t('allNews')}
+              All News
             </Link>
           </li>
 
           <li className="dropdown-li">
             <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-              {t('topHeadlines')} <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+              Top Headlines <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
             </div>
 
             <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
