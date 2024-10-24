@@ -6,25 +6,22 @@ import Loader from "./Loader";
 function TopHeadlines() {
   const params = useParams();
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);  // Start at page 1 and limit to 1 page
+  const [page, setPage] = useState(1); 
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Disable going to a previous page when on page 1
   function handlePrev() {
     if (page > 1) {
       setPage(page - 1);
     }
   }
 
-  // Disable going to the next page since we limit it to 1 page
   function handleNext() {
-    // No increment for page because we limit to 1 page
     return;
   }
 
-  let pageSize = 12;  // Number of articles to display
+  let pageSize = 12;  
 
   useEffect(() => {
     setIsLoading(true);

@@ -8,8 +8,7 @@ const YouTubeNews = () => {
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(null);
 
-  const apiKey = 'AIzaSyCP8DPLtL3Nhs-uKBGiAEmdD_cLAkkOVBA'; // Replace with your actual API key
-
+  const apiKey = 'AIzaSyCbWs7Wc4fWsT0tUM-Th-SM4j5UGHOxbHk';
   useEffect(() => {
     const fetchNewsVideos = async () => {
       const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=breaking+news&type=video&key=${apiKey}&maxResults=10`;
@@ -22,18 +21,16 @@ const YouTubeNews = () => {
         if (data.items && data.items.length > 0) {
           setVideos(data.items);
         } else {
-          console.log('No news videos found');
+          // console.log('No news videos found');
         }
       } catch (error) {
-        setError('Failed to fetch videos');
+        setError('');
         console.error('Error:', error);
       }
     };
 
     fetchNewsVideos();
   }, []);
-
-  // Slider settings for react-slick
   const settings = {
     dots: true,
     infinite: true,
@@ -50,7 +47,7 @@ const YouTubeNews = () => {
       {error && <p>{error}</p>}
       <div className="video-list">
         {videos.length === 0 ? (
-          <p>No videos found</p>
+          <p></p>
         ) : (
           <Slider {...settings}>
             {videos.map((video) => (

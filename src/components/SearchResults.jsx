@@ -18,7 +18,7 @@ function SearchResults() {
       try {
         const response = await fetch(`https://newsapi.org/v2/everything?q=${query}&page=${page}&pageSize=9&apiKey=ed5ff2570b684cc794663cdcae5a680c`);
         const data = await response.json();
-        console.log("API Response:", data); // Debug log
+        console.log("API Response:", data);
         setSearchResults(data.articles);
       } catch (error) {
         console.error("Error fetching search results:", error);

@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import EverythingCard from './EverythingCard';
 import Loader from './Loader';
+import YouTubeNews from './YouTubeNews';
 
 function AllNews() {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ function AllNews() {
   }
 
   function handleNext() {
-    if (page < 2) {  // Limit to 2 pages
+    if (page < 2) { 
       setPage(page + 1);
     }
   }

@@ -36,8 +36,6 @@ function Card(props) {
           </div>
         </div>
       </div>
-
-      {/* Added the new card content with styles */}
       <div className="flex lg:flex-row">
         <div
           className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
