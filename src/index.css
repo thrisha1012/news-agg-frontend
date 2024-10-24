@@ -39,6 +39,7 @@ html, body {
 }
 
 body {
+    background-color: black;
     background: var(--background);
     background-size: cover;
     background-position: center;
@@ -54,6 +55,10 @@ nav {
     height: 70px;
     backdrop-filter: blur(4px);
     border-bottom: 0.1px solid grey;
+    display: flex; /* Ensure flex layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space out items */
+    padding: 0; /* Padding for nav */
 }
 
 .heading {
@@ -61,7 +66,9 @@ nav {
 }
 
 nav ul {
-    min-width: 378px;
+    display: flex;
+    list-style: none;
+    gap:5px;
 }
 
 .dropdown-li {
@@ -196,10 +203,12 @@ ul li ul li a:hover {
 }
 
 .search-box {
-    background: var(--primary);
-    height: 50px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    background: var(--search-background);
+    height: 100px; /* Ensure it's tall enough */
+    border: 1px solid #ccc; /* Add border for visibility */
+    border-radius: 4px; /* Slightly rounded corners */
+    padding: 0 10px; /* Padding for input */
+    margin-right: 10px;
 }
 
 .search-box:focus {
@@ -337,8 +346,9 @@ footer {
         height: calc(100vh - 70px);
         background-color: var(--primary);
         z-index: 1;
-        padding: 25% 10%;
+        padding: 5% 5%;
         transition: 0.3s;
+        gap:5px;
     }
 
     nav ul.active {

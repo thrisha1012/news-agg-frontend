@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 import Login from "./Login";
 
+
 function Header() {
   const [active, setActive] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
@@ -13,7 +14,8 @@ function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const [selectedState, setSelectedState] = useState("");
-  const [showLogin, setShowLogin] = useState(false); 
+  const [showLogin, setShowLogin] = useState(false);
+  const [user, setUser] = useState(null);
 
   const apiKey = 'AIzaSyCP8DPLtL3Nhs-uKBGiAEmdD_cLAkkOVBA';
 
@@ -22,30 +24,50 @@ function Header() {
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
     "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
     "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya",
-    "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", 
+    "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",
     "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
   ];
 
+  const handleLogin = (userData) => {
+    setUser(userData); // Assuming userData is the logged-in user's data
+    localStorage.setItem('user', JSON.stringify(userData)); // Save user data to localStorage
+    setShowLogin(false); // Close the login modal after login
+  };
+  
   const handleStateSelection = (state) => {
-    navigate(`/state-news/${encodeURIComponent(state)}`); 
+    navigate(`/state-news/${encodeURIComponent(state)}`);
     setShowStates(false);
-    setActive(false); 
+    setActive(false);
   };
 
   useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData)); // Set user state if logged in
+    }
+  }, []);
 
-  function toggleTheme() {
-    setTheme(theme === "light-theme" ? "dark-theme" : "light-theme");
-  }
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null); // Clear user state on logout
+    navigate('/'); // Redirect to home
+  };
 
-  // Function to handle search
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (searchTerm.trim() === "") return;
+  //   navigate(`/search/${encodeURIComponent(searchTerm)}`);
+  // };
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim() === "") return;
     navigate(`/search/${encodeURIComponent(searchTerm)}`);
+    setSearchTerm(''); // Clear search term after navigating
   };
+  
+
+  const isLoggedIn = user !== null;
 
   return (
     <header>
@@ -54,7 +76,7 @@ function Header() {
           News Aggregator
         </h3>
 
-        <ul className={active ? "nav-ul flex gap-10 md:gap-12 xs:gap-12 lg:basis-3/6 md:basis-4/6 md:justify-end active" : "nav-ul flex gap-20 lg:basis-3/6 md:basis-4/6 justify-end"}>
+        <ul className={active ? "nav-ul flex gap-5 md:gap-12 xs:gap-12 lg:basis-3/6 md:basis-4/6 md:justify-end active" : "nav-ul flex gap-10 lg:basis-3/6 md:basis-4/6 justify-end"}>
           <li>
             <Link className="no-underline font-semibold" to="/" onClick={() => setActive(!active)}>
               Home
@@ -62,68 +84,71 @@ function Header() {
           </li>
 
           <li className="dropdown-li">
-  <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-    CategoryNews <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
-  </div>
+            <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+              CategoryNews <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+            </div>
 
-  <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
-    {categories.map((element, index) => (
-      <li key={index} onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-        <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(!active)}>
-          {element}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</li>
+            <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
+              {categories.map((element, index) => (
+                <li key={index} onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+                  <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(!active)}>
+                    {element}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
 
-<li className="dropdown-li">
-  <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowStates(!showStates)}>
-    StateNews <FontAwesomeIcon className={showStates ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
-  </div>
+          <li className="dropdown-li">
+            <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowStates(!showStates)}>
+              StateNews <FontAwesomeIcon className={showStates ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+            </div>
 
-  <ul className={showStates ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
-    {states.map((state, index) => (
-      <li key={index} onClick={() => handleStateSelection(state)}>
-        <Link to="#" className="flex gap-3 capitalize cursor-pointer"> {/* Ensure consistent styling */}
-          {state}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</li>
+            <ul className={showStates ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
+              {states.map((state, index) => (
+                <li key={index} onClick={() => handleStateSelection(state)}>
+                  <Link to="#" className="flex gap-3 capitalize cursor-pointer"> {/* Ensure consistent styling */}
+                    {state}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
 
-<li>
-  <form onSubmit={handleSearch} className="flex items-center">
-    <input
-      type="text"
-      className="search-bar"
-      placeholder="Search News"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-    />
-    <button type="submit" className="search-btn">Search</button>
-  </form>
-</li>
+          <li >
+            <form onSubmit={handleSearch} className="flex items-center">
+              <input
+                type="text"
+                className="search-bar"
+                placeholder="Search News"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button type="submit" className="search-btn">Search</button>
+            </form>
+          </li>
 
           <li>
-            <Link className="no-underline font-semibold" to="#" onClick={toggleTheme}>
-              <input type="checkbox" className="checkbox" id="checkbox" />
-              <label htmlFor="checkbox" className="checkbox-label">
-                <i className="fas fa-moon"></i>
-                <i className="fas fa-sun"></i>
-                <span className="ball"></span>
-              </label>
-            </Link>
-          </li>
-        <li>
-            <button className="no-underline font-semibold" onClick={() => setShowLogin(true)}>
-              Login
-            </button>
-          </li>
-        </ul>
+  {user ? ( // Check if user is logged in
+    <Link to="/profile" className="no-underline font-semibold">
+      Profile
+    </Link>
+  ) : (
+    <button className="no-underline font-semibold" onClick={() => setShowLogin(true)}>
+      Login
+    </button>
+  )}
+</li>
 
-        {showLogin && <Login onClose={() => setShowLogin(false)} />}
+
+      </ul>
+
+        
+
+
+
+      {showLogin && <Login onClose={() => setShowLogin(false)} onLogin={handleLogin} />}
+        
 
         <div className={active ? "ham-burger z-index-100 ham-open" : "ham-burger z-index-100"} onClick={() => setActive(!active)}>
           <span className="lines line-1"></span>
