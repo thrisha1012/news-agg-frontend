@@ -24,7 +24,7 @@ html, body {
     --btn-background: #5f99be;
     --search-background: #000;
     --c: #2dd9fe;
-    --hover_bg_change: backdrop-filter: 6px;
+    --hover_bg_change: backdrop-filter:6px;
 }
 
 .dark-theme {
@@ -54,9 +54,6 @@ nav {
     height: 70px;
     backdrop-filter: blur(4px);
     border-bottom: 0.1px solid grey;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 5%;
 }
 
 .heading {
@@ -180,8 +177,8 @@ ul li ul li a:hover {
     align-items: center;
 }
 
-.fa-moon { color: #f1c40f; }
-.fa-sun { color: #f39c12; }
+.fa-moon {color: #f1c40f;}
+.fa-sun {color: #f39c12;}
 
 .checkbox-label .ball {
     background-color: #fff;
@@ -213,17 +210,19 @@ ul li ul li a:hover {
 .btn {
     background-color: var(--heading);
     color: var(--btn-color);
-    width: 8rem; /* Equivalent to w-32 */
-    height: 3rem; /* Equivalent to h-12 */
-    border-radius: 0.375rem; /* Equivalent to rounded-r-md */
+    width: 130.51px;
+    height: 50px;
+    border-top-right-radius: 4px;
+    margin-left: -2px;
+    border-bottom-right-radius: 4px;
 }
 
 .pagination-btn {
     background-color: var(--heading);
     color: var(--btn-color);
-    width: 8rem; /* Equivalent to w-32 */
-    height: 3rem; /* Equivalent to h-12 */
-    border-radius: 9999px; /* Equivalent to rounded-full */
+    width: 130.51px;
+    height: 50px;
+    border-radius: 34px;
 }
 
 .everything-card {
@@ -296,7 +295,7 @@ footer {
 }
 
 @keyframes l19 { 
-    100% { transform: rotate(1turn); }
+    100% { transform: rotate(1turn) }
 }
 
 /* Responsive styles */
@@ -308,7 +307,8 @@ footer {
 
 @media only screen and (min-width: 640px) and (max-width: 689px) {
     nav {
-        padding: 0 5%; /* Added consistent padding */
+        justify-content: space-between !important;
+        padding: 0 15% !important;
     }
 }
 
@@ -343,46 +343,23 @@ footer {
 
     nav ul.active {
         left: 0;
-        transition: 0.3s;
-    }
-
-    nav ul li {
-        margin-bottom: 1rem;
-    }
-
-    nav ul li ul {
-        position: static;
-        visibility: visible;
-        opacity: 1;
-        display: block;
-        min-width: 250px;
-        padding: 0;
-        margin: 0;
-        box-shadow: none;
+        display: flex;
     }
 
     .everything-card {
-        width: 80%;
-        height: 300px;
+        width: 350px;
     }
+}
 
-    .everything-card-img {
+@media (max-width: 480px) {
+    .everything-card {
         width: 90%;
-        height: auto;
-    }
-
-    .title {
-        font-size: 16px;
     }
 }
 
-@media (max-width: 640px) {
-    footer {
-        display: none;
-    }
-
-    .everything-card {
-        width: 100%;
-        height: 100%;
-    }
+img {
+    max-width: 100%;
+    height: auto;
 }
+
+

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
+import Login from "./Login";
 
 function Header() {
   const [active, setActive] = useState(false);
@@ -12,6 +13,7 @@ function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const [selectedState, setSelectedState] = useState("");
+  const [showLogin, setShowLogin] = useState(false); 
 
   const apiKey = 'AIzaSyCP8DPLtL3Nhs-uKBGiAEmdD_cLAkkOVBA';
 
@@ -60,48 +62,50 @@ function Header() {
           </li>
 
           <li className="dropdown-li">
-            <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-              Top Headlines <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
-            </div>
+  <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+    CategoryNews <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+  </div>
 
-            <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
-              {categories.map((element, index) => (
-                <li key={index} onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-                  <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(!active)}>
-                    {element}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
-          
-          <li className="dropdown-li">
-            <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowStates(!showStates)}>
-              State News <FontAwesomeIcon className={showStates ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
-            </div>
+  <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
+    {categories.map((element, index) => (
+      <li key={index} onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+        <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(!active)}>
+          {element}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</li>
 
-            <ul className={showStates ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
-              {states.map((state, index) => (
-                <li key={index} onClick={() => handleStateSelection(state)}>
-                  <div className="flex gap-3 capitalize">
-                    {state}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </li>
-          <li>
-            <form onSubmit={handleSearch} className="flex items-center">
-              <input
-                type="text"
-                className="search-bar"
-                placeholder="Search News"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button type="submit" className="search-btn">Search</button>
-            </form>
-          </li>
+<li className="dropdown-li">
+  <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowStates(!showStates)}>
+    StateNews <FontAwesomeIcon className={showStates ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+  </div>
+
+  <ul className={showStates ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
+    {states.map((state, index) => (
+      <li key={index} onClick={() => handleStateSelection(state)}>
+        <Link to="#" className="flex gap-3 capitalize cursor-pointer"> {/* Ensure consistent styling */}
+          {state}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</li>
+
+<li>
+  <form onSubmit={handleSearch} className="flex items-center">
+    <input
+      type="text"
+      className="search-bar"
+      placeholder="Search News"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+    <button type="submit" className="search-btn">Search</button>
+  </form>
+</li>
+
           <li>
             <Link className="no-underline font-semibold" to="#" onClick={toggleTheme}>
               <input type="checkbox" className="checkbox" id="checkbox" />
@@ -112,7 +116,14 @@ function Header() {
               </label>
             </Link>
           </li>
+        <li>
+            <button className="no-underline font-semibold" onClick={() => setShowLogin(true)}>
+              Login
+            </button>
+          </li>
         </ul>
+
+        {showLogin && <Login onClose={() => setShowLogin(false)} />}
 
         <div className={active ? "ham-burger z-index-100 ham-open" : "ham-burger z-index-100"} onClick={() => setActive(!active)}>
           <span className="lines line-1"></span>
