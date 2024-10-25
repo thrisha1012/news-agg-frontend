@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 import Login from "./Login";
 
-
 function Header() {
   const [active, setActive] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
@@ -12,6 +11,7 @@ function Header() {
   const [theme, setTheme] = useState("light-theme");
   const [videos, setVideos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showProfileOptions, setShowProfileOptions] = useState(false); 
   const navigate = useNavigate();
   const [selectedState, setSelectedState] = useState("");
   const [showLogin, setShowLogin] = useState(false);
@@ -28,10 +28,12 @@ function Header() {
     "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
   ];
 
-  const handleLogin = (userData) => {
-    setUser(userData); // Assuming userData is the logged-in user's data
+  const handleLogin = (userData, token) => {
+    setUser(userData); // Store user data in state
     localStorage.setItem('user', JSON.stringify(userData)); // Save user data to localStorage
+    localStorage.setItem('token', token); // Save the token to localStorage
     setShowLogin(false); // Close the login modal after login
+    navigate('/profile'); // Navigate to the profile page after login
   };
   
   const handleStateSelection = (state) => {
@@ -43,22 +45,23 @@ function Header() {
   useEffect(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
-      setUser(JSON.parse(userData)); // Set user state if logged in
+      try {
+        const parsedUserData = JSON.parse(userData);
+        setUser(parsedUserData);
+      } catch (error) {
+        console.error("Invalid JSON data:", error);
+        localStorage.removeItem('user'); // Clear invalid data
+      }
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem('token'); // Clear the token from localStorage
+    localStorage.removeItem('user'); // Clear user data from localStorage
     setUser(null); // Clear user state on logout
     navigate('/'); // Redirect to home
   };
 
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   if (searchTerm.trim() === "") return;
-  //   navigate(`/search/${encodeURIComponent(searchTerm)}`);
-  // };
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim() === "") return;
@@ -66,7 +69,6 @@ function Header() {
     setSearchTerm(''); // Clear search term after navigating
   };
   
-
   const isLoggedIn = user !== null;
 
   return (
@@ -84,20 +86,21 @@ function Header() {
           </li>
 
           <li className="dropdown-li">
-            <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-              CategoryNews <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
-            </div>
+  <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+    CategoryNews <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+  </div>
 
-            <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
-              {categories.map((element, index) => (
-                <li key={index} onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-                  <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(!active)}>
-                    {element}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
+  <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"} style={{ display: showCategoryDropdown ? 'block' : 'none' }}>
+    {categories.map((element, index) => (
+      <li key={index} onClick={() => setShowCategoryDropdown(false)}>
+        <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(false)}>
+          {element}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</li>
+
 
           <li className="dropdown-li">
             <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowStates(!showStates)}>
@@ -107,7 +110,7 @@ function Header() {
             <ul className={showStates ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
               {states.map((state, index) => (
                 <li key={index} onClick={() => handleStateSelection(state)}>
-                  <Link to="#" className="flex gap-3 capitalize cursor-pointer"> {/* Ensure consistent styling */}
+                  <Link to="#" className="flex gap-3 capitalize cursor-pointer">
                     {state}
                   </Link>
                 </li>
@@ -115,7 +118,7 @@ function Header() {
             </ul>
           </li>
 
-          <li >
+          <li>
             <form onSubmit={handleSearch} className="flex items-center">
               <input
                 type="text"
@@ -128,27 +131,30 @@ function Header() {
             </form>
           </li>
 
-          <li>
-  {user ? ( // Check if user is logged in
-    <Link to="/profile" className="no-underline font-semibold">
-      Profile
-    </Link>
-  ) : (
-    <button className="no-underline font-semibold" onClick={() => setShowLogin(true)}>
-      Login
-    </button>
-  )}
-</li>
+          <li
+            onMouseEnter={() => setShowProfileOptions(true)} // Show options on hover
+            onMouseLeave={() => setShowProfileOptions(false)} // Hide options when not hovering
+          >
+            {isLoggedIn ? ( // Check if user is logged in
+              <>
+                <Link to="/profile" className="no-underline font-semibold">
+                  Profile
+                </Link>
+                {showProfileOptions && (
+                  <button className="no-underline font-semibold" onClick={handleLogout}>
+                    Logout
+                  </button>
+                )}
+              </>
+            ) : (
+              <button className="no-underline font-semibold" onClick={() => setShowLogin(true)}>
+                Login
+              </button>
+            )}
+          </li>
+        </ul>
 
-
-      </ul>
-
-        
-
-
-
-      {showLogin && <Login onClose={() => setShowLogin(false)} onLogin={handleLogin} />}
-        
+        {showLogin && <Login onClose={() => setShowLogin(false)} onLogin={handleLogin} />}
 
         <div className={active ? "ham-burger z-index-100 ham-open" : "ham-burger z-index-100"} onClick={() => setActive(!active)}>
           <span className="lines line-1"></span>
