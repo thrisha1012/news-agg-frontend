@@ -1,6 +1,41 @@
 import React from "react";
+import axios from "axios";
 
 function Card(props) {
+  const handleSave = async () => {
+    const token = localStorage.getItem('token'); // Get the JWT token from localStorage
+    if (!token) {
+      alert("Please log in to save articles.");
+      return;
+    }
+
+    const articleData = {
+      title: props.title,
+      imgUrl: props.imgUrl,
+      description: props.description,
+      url: props.url,
+      source: props.source,
+      author: props.author,
+      publishedAt: props.publishedAt,
+    };
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/save-article',
+        articleData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Send the token in the header
+          },
+        }
+      );
+      alert("Article saved successfully!");
+    } catch (error) {
+      console.error("Error saving article:", error);
+      alert("Failed to save the article.");
+    }
+  };
+
   return (
     <div className="everything-card mt-10">
       <div className="everything-card flex flex-wrap p-5 gap-1 mb-1">
@@ -19,6 +54,7 @@ function Card(props) {
             <a
               href={props.url}
               target="_blank"
+              rel="noopener noreferrer"
               className="link underline break-words"
             >
               {props.source.substring(0, 70)}
@@ -35,48 +71,12 @@ function Card(props) {
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Added the new card content with styles */}
-      <div className="flex lg:flex-row">
-        <div
-          className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-          style={{ backgroundImage: `url(${props.imageUrlLeft})` }}
-          title={props.imageLeftTitle}
-        ></div>
-        <div className="border rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-          <div className="mb-8">
-            <p className="text-sm text-gray-600 flex items-center">
-              {props.memberIcon && (
-                <svg
-                  className="fill-current text-gray-500 w-3 h-3 mr-2"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  {props.memberIcon}
-                </svg>
-              )}
-              {props.memberText}
-            </p>
-            <div className="text-gray-900 font-bold text-xl mb-2">
-              {props.cardTitle}
-            </div>
-            <p className="text-gray-700 text-base">{props.cardDescription}</p>
-          </div>
-          <div className="flex items-center">
-            {props.authorImage && (
-              <img
-                className="w-10 h-10 rounded-full mr-4"
-                src={props.authorImage}
-                alt="Avatar"
-              />
-            )}
-            <div className="text-sm">
-              <p className="text-gray-900 leading-none">{props.authorName}</p>
-              <p className="text-gray-600">{props.publishedDate}</p>
-            </div>
-          </div>
-        </div>
+      <button 
+        className="save-button bg-blue-500 text-white py-2 px-4 rounded"
+        onClick={handleSave}
+      >
+        Save
+      </button>
       </div>
     </div>
   );
