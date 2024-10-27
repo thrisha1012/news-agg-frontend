@@ -3,7 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
+    margin-top: 10%; /* Full viewport height */
   }
   
   .profile-content {
