@@ -10,7 +10,7 @@ function Register({ onClose }) {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1); // Go back to the previous page
+    navigate('/login'); // Navigate to the login page
   };
 
   const handleRegister = async (e) => {
@@ -30,7 +30,7 @@ function Register({ onClose }) {
 
       if (response.ok) {
         alert('Registration successful');
-        onClose();
+        navigate('/'); // Navigate to the home page after successful registration
       } else {
         const errorMessage = await response.text();
         alert(`Registration failed: ${errorMessage}`);
@@ -43,23 +43,25 @@ function Register({ onClose }) {
   return (
     <div className="login-modal">
       <div className="modal-content">
-        <h2>Register</h2>
-        <button type="button" onClick={handleBack}> {/* Corrected type here */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
-          </svg>
-        </button>
+        <h2 style={{ fontWeight: 'bold' }}>REGISTER</h2>
+
+        {/* Back arrow icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="black" // Set the stroke color to black
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          onClick={handleBack} // Navigate back on click
+          style={{ cursor: 'pointer', marginBottom: '20px' }} // Change cursor and margin
+        >
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
         <form onSubmit={handleRegister}>
           <input
             type="text"
@@ -90,7 +92,6 @@ function Register({ onClose }) {
             required
           />
           <button type="submit">Register</button>
-          <button type="button" onClick={onClose}>Close</button>
         </form>
       </div>
     </div>

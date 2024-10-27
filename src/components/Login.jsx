@@ -15,15 +15,15 @@ function Login({ onClose, onLogin }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         const { token, name } = data;
         alert('Login successful');
-  
+
         // Store the token in localStorage
         localStorage.setItem('token', token);
-  
+
         onLogin(name, token); // Pass the user data to the parent component (if needed)
         navigate('/'); // Redirect to profile page after login
       } else {
@@ -34,12 +34,17 @@ function Login({ onClose, onLogin }) {
       console.error('Error:', error);
     }
   };
-  
+
+  const handleClose = () => {
+    onClose(); // Call the onClose function (if needed)
+    navigate('/'); // Redirect to the home page after closing
+  };
 
   return (
     <div className="login-modal">
       <div className="modal-content">
-        <h2>Login</h2>
+        <h2 style={{ fontWeight: 'bold' }}>LOGIN</h2>
+
         <form onSubmit={handleLogin}>
           <input
             type="email"
@@ -56,10 +61,10 @@ function Login({ onClose, onLogin }) {
             required
           />
           <button type="submit">Login</button>
-          <button type="button" onClick={onClose}>Close</button>
+          <button type="button" onClick={handleClose}>Close</button>
         </form>
         <p>
-          Not registered? <Link to="/register">Create an account</Link>
+          Not registered? <Link to="/register" className="underline-link">Create an account</Link>
         </p>
       </div>
     </div>

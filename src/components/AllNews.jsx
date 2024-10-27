@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import EverythingCard from './EverythingCard';
 import Loader from './Loader';
 import YouTubeNews from './YouTubeNews';
+import axios from 'axios';
 
 function AllNews() {
   const [data, setData] = useState([]);
@@ -9,6 +10,8 @@ function AllNews() {
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [liveScores, setLiveScores] = useState([]);
+  const [scoreLoading, setScoreLoading] = useState(true);
 
   function handlePrev() {
     if (page > 1) {
@@ -22,7 +25,7 @@ function AllNews() {
     }
   }
 
-  let pageSize =9;  
+  let pageSize = 9;
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,6 +54,27 @@ function AllNews() {
       });
   }, [page]);
 
+  // Fetch live cricket scores
+  useEffect(() => {
+    const fetchLiveScores = async () => {
+      try {
+        console.log('Fetching live scores...');
+        const response = await axios.get('https://cricapi.com/api/cricket?apikey=9b5f6f74d9mshe0c829a2d3130f0p19bc70jsn8a161300709a');
+        console.log('Response:', response);
+        if (response.data) {
+          setLiveScores(response.data); // Assuming the data is structured correctly
+        }
+      } catch (error) {
+        console.error('Error fetching live scores:', error);
+      } finally {
+        setScoreLoading(false);
+      }
+    };
+
+    fetchLiveScores();
+}, []);
+
+
   return (
     <>
       {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -69,6 +93,7 @@ function AllNews() {
           />
         )) : <Loader />}
       </div>
+
       {!isLoading && data.length > 0 && (
         <div className="pagination flex justify-center gap-14 my-10 items-center">
           <button disabled={page <= 1} className='pagination-btn text-center' onClick={handlePrev}>&larr; Prev</button>
@@ -76,6 +101,21 @@ function AllNews() {
           <button className='pagination-btn text-center' disabled={page >= 2} onClick={handleNext}>Next &rarr;</button>
         </div>
       )}
+
+      {/* Live Scores Section */}
+      <div className='live-scores my-10'>
+        <h2 className='text-xl font-bold'>Live Cricket Scores</h2>
+        {scoreLoading ? <Loader /> : (
+          <ul className='score-list'>
+            {liveScores.map((match, index) => (
+              <li key={index} className='score-item'>
+                <p>{match.source} vs {match.opponent}</p>
+                <p>Score: {match.score}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   );
 }

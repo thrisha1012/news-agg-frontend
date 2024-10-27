@@ -3,7 +3,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+<<<<<<< HEAD
     height: 100vh; 
+=======
+    height: 100vh;
+    margin-top: 10%; /* Full viewport height */
+>>>>>>> 6b5d0d1451da5b7ef7544d99fe788bad85114e49
   }
   
   .profile-content {

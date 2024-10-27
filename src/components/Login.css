@@ -1,101 +1,106 @@
 /* Global Styles */
 * {
-    box-sizing: border-box; /* Ensure consistent padding and margin behavior */
-  }
-  
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Ensure the body takes up the full height of the viewport */
-  }
-  
-  .login-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; 
-  }
-  
-  /* Modal Content */
+  box-sizing: border-box; /* Ensure consistent padding and margin behavior */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure the body takes up the full height of the viewport */
+}
+
+.login-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+/* Modal Content */
+.modal-content {
+  background: white;
+  padding: 40px; /* More padding for a bigger look */
+  border-radius: 10px; /* Slightly larger border radius for smoother edges */
+  width: 400px; /* Increased width for a larger form */
+  max-width: 90%; /* Responsive on smaller screens */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Slightly more pronounced shadow */
+  text-align: center;
+}
+
+/* Input Fields */
+.modal-content input {
+  display: block;
+  width: 100%;
+  margin: 15px 0;
+  padding: 15px; /* Larger padding for a bigger, more prominent look */
+  font-size: 18px; /* Increased font size */
+  border-radius: 6px; /* More rounded corners */
+  border: 1px solid #ccc; /* Subtle border */
+}
+
+/* Buttons */
+.modal-content button {
+  margin: 15px 5px;
+  padding: 6px 12px; /* Reduced padding for smaller buttons */
+  font-size: 14px; /* Smaller text on buttons */
+  border-radius: 4px; /* Slightly more rounded corners */
+  border: none;
+  background-color: #007bff; /* Blue button color */
+  color: white;
+  cursor: pointer;
+  width: 100px; /* Fixed width for buttons */
+}
+
+.modal-content button[type="button"] {
+  background-color: red; /* Red for the close button */
+}
+
+.modal-content button[type="button1"] {
+  background-color: white; /* White for the second button */
+}
+
+/* Hover Effect for Buttons */
+.modal-content button:hover {
+  opacity: 0.9;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 500px) {
   .modal-content {
-    background: white;
-    padding: 40px; /* More padding for a bigger look */
-    border-radius: 10px; /* Slightly larger border radius for smoother edges */
-    width: 400px; /* Increased width for a larger form */
-    max-width: 90%; /* Responsive on smaller screens */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Slightly more pronounced shadow */
-    text-align: center;
-  }
-  
-  /* Input Fields */
-  .modal-content input {
-    display: block;
-    width: 100%;
-    margin: 15px 0;
-    padding: 15px; /* Larger padding for a bigger, more prominent look */
-    font-size: 18px; /* Increased font size */
-    border-radius: 6px; /* More rounded corners */
-    border: 1px solid #ccc; /* Subtle border */
-  }
-  
-  /* Buttons */
-  .modal-content button {
-    margin: 15px 5px;
-    padding: 12px 25px; /* Larger padding for bigger buttons */
-    font-size: 18px; /* Larger text on buttons */
-    border-radius: 6px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .modal-content button[type="button"] {
-    background-color: #dc3545; /* Red for the close button */
-  }
-  .modal-content button[type="button1"] {
-    background-color: white; /* Red for the close button */
-  }
-  
-  /* Hover Effect for Buttons */
-  .modal-content button:hover {
-    opacity: 0.9;
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 500px) {
-    .modal-content {
       width: 90%; /* Full width on smaller screens */
       padding: 30px;
-    }
-  
-    .modal-content input {
-      padding: 12px; /* Slightly smaller padding on mobile */
-    }
-  
-    .modal-content button {
-      padding: 10px 20px; /* Slightly smaller buttons on mobile */
-    }
   }
-  
 
-  .back-button {
-    display: flex;
-    align-items: left;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 0px; /* Adjust margin as needed */
+  .modal-content input {
+      padding: 12px; /* Slightly smaller padding on mobile */
   }
-  
-  .back-button svg {
-    margin-right: 0px; /* Space between icon and text */
+
+  .modal-content button {
+      padding: 8px 14px; /* Slightly smaller buttons on mobile */
+      width: 80px; /* Adjusted width for buttons on mobile */
   }
-  
+}
+
+.back-button {
+  display: flex;
+  align-items: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 0px; /* Adjust margin as needed */
+}
+
+.back-button svg {
+  margin-right: 0px; /* Space between icon and text */
+}
+.underline-link {
+  text-decoration: underline; /* Underline the text */
+}
+

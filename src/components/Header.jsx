@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faCircleArrowDown, faSearch } from '@fortawesome/free-solid-svg-icons'; // Import faSearch
 import Login from "./Login";
 
 function Header() {
   const [active, setActive] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [showStates, setShowStates] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [theme, setTheme] = useState("light-theme");
   const [videos, setVideos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showProfileOptions, setShowProfileOptions] = useState(false); 
   const navigate = useNavigate();
   const [selectedState, setSelectedState] = useState("");
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
 
-  const apiKey = 'AIzaSyCP8DPLtL3Nhs-uKBGiAEmdD_cLAkkOVBA';
+  const apiKey = 'AIzaSyCP8DPLtL3Nhs-uKBGiAEmdD_cLAkkOVBA'; // Replace with your actual API key
 
   const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology", "politics"];
   const states = [
@@ -29,13 +29,13 @@ function Header() {
   ];
 
   const handleLogin = (userData, token) => {
-    setUser(userData); // Store user data in state
-    localStorage.setItem('user', JSON.stringify(userData)); // Save user data to localStorage
-    localStorage.setItem('token', token); // Save the token to localStorage
-    setShowLogin(false); // Close the login modal after login
-    navigate('/profile'); // Navigate to the profile page after login
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', token);
+    setShowLogin(false);
+    navigate('/profile');
   };
-  
+
   const handleStateSelection = (state) => {
     navigate(`/state-news/${encodeURIComponent(state)}`);
     setShowStates(false);
@@ -50,25 +50,25 @@ function Header() {
         setUser(parsedUserData);
       } catch (error) {
         console.error("Invalid JSON data:", error);
-        localStorage.removeItem('user'); // Clear invalid data
+        localStorage.removeItem('user');
       }
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Clear the token from localStorage
-    localStorage.removeItem('user'); // Clear user data from localStorage
-    setUser(null); // Clear user state on logout
-    navigate('/'); // Redirect to home
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/');
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim() === "") return;
     navigate(`/search/${encodeURIComponent(searchTerm)}`);
-    setSearchTerm(''); // Clear search term after navigating
+    setSearchTerm('');
   };
-  
+
   const isLoggedIn = user !== null;
 
   return (
@@ -86,21 +86,20 @@ function Header() {
           </li>
 
           <li className="dropdown-li">
-  <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-    CategoryNews <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
-  </div>
+            <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+              CategoryNews <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+            </div>
 
-  <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"} style={{ display: showCategoryDropdown ? 'block' : 'none' }}>
-    {categories.map((element, index) => (
-      <li key={index} onClick={() => setShowCategoryDropdown(false)}>
-        <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(false)}>
-          {element}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</li>
-
+            <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"} style={{ display: showCategoryDropdown ? 'block' : 'none' }}>
+              {categories.map((element, index) => (
+                <li key={index} onClick={() => setShowCategoryDropdown(false)}>
+                  <Link to={`/top-headlines/${element}`} className="flex gap-3 capitalize" onClick={() => setActive(false)}>
+                    {element}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
 
           <li className="dropdown-li">
             <div className="no-underline font-semibold flex items-center gap-2 cursor-pointer" onClick={() => setShowStates(!showStates)}>
@@ -118,8 +117,9 @@ function Header() {
             </ul>
           </li>
 
+          {/* Search Box Integration */}
           <li>
-            <form onSubmit={handleSearch} className="flex items-center">
+            <div className="search-container flex items-center">
               <input
                 type="text"
                 className="search-bar"
@@ -127,29 +127,47 @@ function Header() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button type="submit" className="search-btn">Search</button>
-            </form>
+              <span className="cursor-pointer" onClick={handleSearch}>
+                <FontAwesomeIcon icon={faSearch} className="text-white" />
+              </span>
+            </div>
           </li>
 
-          <li
-            onMouseEnter={() => setShowProfileOptions(true)} // Show options on hover
-            onMouseLeave={() => setShowProfileOptions(false)} // Hide options when not hovering
-          >
-            {isLoggedIn ? ( // Check if user is logged in
-              <>
-                <Link to="/profile" className="no-underline font-semibold">
-                  Profile
-                </Link>
-                {showProfileOptions && (
-                  <button className="no-underline font-semibold" onClick={handleLogout}>
+          {/* Profile dropdown */}
+          <li className="dropdown-li">
+            <div
+              className="no-underline font-semibold flex items-center gap-2 cursor-pointer"
+              onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+            >
+              {isLoggedIn ? (
+                <>
+                  Profile <FontAwesomeIcon icon={faCircleArrowDown} className={showProfileDropdown ? "down-arrow-icon-active" : "down-arrow-icon"} />
+                </>
+              ) : (
+                <button className="no-underline font-semibold" onClick={() => setShowLogin(true)}>
+                  Login
+                </button>
+              )}
+            </div>
+
+            {showProfileDropdown && isLoggedIn && (
+              <ul className="dropdown p-2 show-dropdown">
+                <li className="p-2">
+                  <Link to="/profile" className="no-underline font-semibold">View Profile</Link>
+                </li>
+                <li className="p-2">
+                  <Link
+                    to="#"
+                    className="no-underline font-semibold"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLogout();
+                    }}
+                  >
                     Logout
-                  </button>
-                )}
-              </>
-            ) : (
-              <button className="no-underline font-semibold" onClick={() => setShowLogin(true)}>
-                Login
-              </button>
+                  </Link>
+                </li>
+              </ul>
             )}
           </li>
         </ul>

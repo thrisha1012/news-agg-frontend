@@ -22,10 +22,11 @@ html, body {
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     z-index: 1000;
-  }
+}
   
-  .dropdown li {
+.dropdown li {
     list-style: none;
+<<<<<<< HEAD
     text-decoration-color: #ccc;
   }
   
@@ -36,6 +37,18 @@ html, body {
   .dropdown a:hover {
     background-color: #f0f0f0;
   }
+=======
+}
+  
+.dropdown a {
+    text-decoration: none;
+    color: black;
+}
+  
+.dropdown a:hover {
+    background-color: #f0f0f0;
+}
+>>>>>>> 6b5d0d1451da5b7ef7544d99fe788bad85114e49
 
 body {
     background: var(--background);
@@ -67,7 +80,7 @@ nav {
 nav ul {
     display: flex;
     list-style: none;
-    gap:5px;
+    gap: 5px;
 }
 
 .dropdown-li {
@@ -201,6 +214,7 @@ ul li ul li a:hover {
     transform: translateX(24px);
 }
 
+<<<<<<< HEAD
 .search-bar {
     background-color: #ccc;
     height: 25px; 
@@ -209,16 +223,31 @@ ul li ul li a:hover {
     border-radius: 4px; 
     padding: 0 10px; 
     margin-right: 10px;
+=======
+.search-box {
+    background: var(--search-background);
+    height: 100px; /* Ensure it's tall enough */
+    border: 1px solid #ccc; /* Add border for visibility */
+    border-radius: 4px; /* Slightly rounded corners */
+    padding: 0 10px; /* Padding for input */
+    margin-right: 10px; /* Space between search box and the next element */
+>>>>>>> 6b5d0d1451da5b7ef7544d99fe788bad85114e49
 }
 
-.search-box:focus {
-    outline: none;
-    border: 2px solid var(--btn-background);
+.icon {
+    /* Adjust the margin to create spacing */
+    margin-left: 5px; /* Add this line to create padding between the search box and the icon */
 }
+.search-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+
 
 .btn {
-    background-color: var(--heading);
-    color: var(--btn-color);
+    background-color: #3ca0e7; /* Changed to blue */
+    color: white; /* Changed text color to white */
     width: 130.51px;
     height: 50px;
     border-top-right-radius: 4px;
@@ -227,8 +256,8 @@ ul li ul li a:hover {
 }
 
 .pagination-btn {
-    background-color: var(--heading);
-    color: var(--btn-color);
+    background-color: #3ca0e7; /* Changed to blue */
+    color: white; /* Changed text color to white */
     width: 130.51px;
     height: 50px;
     border-radius: 34px;
@@ -351,7 +380,7 @@ footer {
         z-index: 1;
         padding: 5% 5%;
         transition: 0.3s;
-        gap:5px;
+        gap: 5px;
     }
 
     nav ul.active {
@@ -360,21 +389,31 @@ footer {
     }
 
     .everything-card {
-        width: 350px;
+        width: 300px;
+        height: 400px;
+    }
+
+    .everything-card-img {
+        width: 200px;
+        height: 100px;
+    }
+
+    .title {
+        font-size: 16px;
     }
 }
-
-@media (max-width: 480px) {
-    .everything-card {
-        width: 90%;
-    }
+.live-scores {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+.score-list {
+    list-style-type: none;
 }
 
+<<<<<<< HEAD
 .absolute {
     position: absolute;
   }
@@ -431,3 +470,8 @@ img {
 }
 
   
+=======
+.score-item {
+    margin: 10px 0;
+}
+>>>>>>> 6b5d0d1451da5b7ef7544d99fe788bad85114e49
