@@ -7,11 +7,13 @@
     padding: 0;
     box-sizing: border-box;
     color: var(--txt);
+
 }
 
 html, body {
     overflow-x: hidden;
     scroll-behavior: smooth;
+    background-color: #000;
 }
 
 .dropdown {
@@ -24,45 +26,18 @@ html, body {
   
   .dropdown li {
     list-style: none;
+    text-decoration-color: #ccc;
   }
   
   .dropdown a {
-    text-decoration: none;
-    color: black;
+    text-decoration-color: #ccc;
   }
   
   .dropdown a:hover {
     background-color: #f0f0f0;
   }
-  
-  
-
-.light-theme {
-    --background: url("https://tailwindcss.com/_next/static/media/hero@75.b2469a49.jpg");
-    --primary: #F8FAFC;
-    --secondary: #0F172A;
-    --txt: #000;
-    --heading: #2dd9fe;
-    --btn-color: #fff;
-    --btn-background: #5f99be;
-    --search-background: #000;
-    --c: #2dd9fe;
-    --hover_bg_change: backdrop-filter:6px;
-}
-
-.dark-theme {
-    --background: url("https://tailwindcss.com/_next/static/media/hero-dark@90.dba36cdf.jpg");
-    --primary: rgb(30,41,59);
-    --secondary: #D5DDF0;
-    --txt: #fff;
-    --heading: #4666FF;
-    --btn-color: #000;
-    --btn-background: #5f99be;
-    --search-background: #18181b;
-}
 
 body {
-    background-color: black;
     background: var(--background);
     background-size: cover;
     background-position: center;
@@ -75,6 +50,7 @@ body {
 }
 
 nav {
+    background-color: #cccefa;
     height: 70px;
     backdrop-filter: blur(4px);
     border-bottom: 0.1px solid grey;
@@ -225,12 +201,13 @@ ul li ul li a:hover {
     transform: translateX(24px);
 }
 
-.search-box {
-    background: var(--search-background);
-    height: 100px; /* Ensure it's tall enough */
-    border: 1px solid #ccc; /* Add border for visibility */
-    border-radius: 4px; /* Slightly rounded corners */
-    padding: 0 10px; /* Padding for input */
+.search-bar {
+    background-color: #ccc;
+    height: 25px; 
+    width:200px;
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    padding: 0 10px; 
     margin-right: 10px;
 }
 
@@ -255,18 +232,21 @@ ul li ul li a:hover {
     width: 130.51px;
     height: 50px;
     border-radius: 34px;
+    background-color: #ccc;
 }
 
 .everything-card {
     width: 400px;
     height: 500px;
-    overflow: hidden;
     border-radius: 15px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background-color:rgb(37, 37, 27);
     box-shadow: 
-        0 0 10px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(0, 0, 0, 0.5);
+        0 0 10px rgb(37, 37, 27),
+        0 0 10px rgb(37, 37, 27),
+        0 0 10px rgb(37, 37, 27),
+        0 0 10px rgb(37, 37, 27);
 }
 
 .everything-card:hover {
@@ -274,6 +254,7 @@ ul li ul li a:hover {
     transition: transform 0.2s ease-in-out;
     background: var(--primary);
     box-shadow: 0 0 11px grey; 
+    background-color: grey;
 }
 
 .everything-card-img {
@@ -293,7 +274,6 @@ footer {
     background: var(--heading);
 }
 
-/* Loader */
 .loader-container {
     height: 100vh;
     padding: 0; 
@@ -395,8 +375,6 @@ img {
     height: auto;
 }
 
-
-/* Example CSS */
 .absolute {
     position: absolute;
   }
@@ -410,7 +388,7 @@ img {
   }
   
   .hover\:bg-gray-200:hover {
-    background-color: #e2e8f0; /* Tailwind CSS gray-200 */
+    background-color: #e2e8f0;
   }
   
   .shadow-lg {
@@ -424,4 +402,32 @@ img {
   .rounded {
     border-radius: 0.25rem;
   }
+
+  
+  .save-button {
+    background-color: #e2e8f0;
+    padding: 5px 10px;
+    border: 2px solid #000;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s, border-radius 0.3s;
+    width: 60px;     
+    height: 30px; 
+    display: flex;           /* Enables flexbox */
+    align-items: center;     /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    outline: 2px solid transparent; /* Sets transparent outline */
+}
+
+.save-button:hover {
+    background-color: #cccefa;
+    border-radius: 20px;
+}
+
+.search-btn:hover{
+    background-color: #3ca0e7;
+    border-radius: 15px;
+    width:70px;
+}
+
   

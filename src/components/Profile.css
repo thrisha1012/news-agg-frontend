@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    height: 100vh; 
   }
   
   .profile-content {
@@ -56,8 +56,8 @@
   .articles-container {
     margin-top: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    gap: 20px; /* Space between cards */
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
   }
   
   .article-card {
@@ -100,10 +100,9 @@
     text-decoration: underline;
   }
   
-  /* Responsive Design */
   @media (max-width: 600px) {
     .articles-container {
-      grid-template-columns: 1fr; /* One column on small screens */
+      grid-template-columns: 1fr; 
     }
   }
   

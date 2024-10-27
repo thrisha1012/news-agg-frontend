@@ -25,7 +25,7 @@ function Login({ onClose, onLogin }) {
         localStorage.setItem('token', token);
   
         onLogin(name, token); // Pass the user data to the parent component (if needed)
-        navigate('/profile'); // Redirect to profile page after login
+        navigate('/'); // Redirect to profile page after login
       } else {
         const errorMessage = await response.text();
         alert(`Login failed: ${errorMessage}`);
