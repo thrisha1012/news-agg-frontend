@@ -1,9 +1,11 @@
 import React from "react";
 import axios from "axios";
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
+import { FacebookIcon, TwitterIcon, WhatsappIcon } from "react-share";
 
 function Card(props) {
   const handleSave = async () => {
-    const token = localStorage.getItem('token'); // Get the JWT token from localStorage
+    const token = localStorage.getItem('token');
     if (!token) {
       alert("Please log in to save articles.");
       return;
@@ -36,9 +38,39 @@ function Card(props) {
     }
   };
 
+  const emailSubject = `Check out this article: ${props.title}`;
+  const emailBody = `I thought you might be interested in this article:\n\n${props.title}\n${props.description}\n\nRead more here: ${props.url}`;
+
   return (
     <div className="everything-card mt-10">
       <div className="everything-card flex flex-wrap p-5 gap-1 mb-1">
+        <button 
+          className="save-button bg-blue-500 text-white py-2 px-4 rounded"
+          onClick={handleSave}
+        >
+          Save
+        </button>
+        
+        <div className="share-buttons flex gap-2 mt-2">
+          <FacebookShareButton url={props.url} quote={props.title}>
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>
+          <TwitterShareButton url={props.url} title={props.title}>
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+          <WhatsappShareButton url={props.url} title={props.title}>
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+
+          {/* Email Share Button */}
+          <a
+            href={`mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
+            className="email-share-button bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Share via Email
+          </a>
+        </div>
+        
         <b className="title">{props.title}</b>
         <div className="everything-card-img mx-auto">
           <img className="everything-card-img" src={props.imgUrl} alt="img" />
@@ -71,12 +103,6 @@ function Card(props) {
             </p>
           </div>
         </div>
-      <button 
-        className="save-button bg-blue-500 text-white py-2 px-4 rounded"
-        onClick={handleSave}
-      >
-        Save
-      </button>
       </div>
     </div>
   );
