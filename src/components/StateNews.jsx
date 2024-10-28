@@ -9,7 +9,7 @@ function StateNews() {
 
   // Function to fetch videos by state
   const fetchVideosByState = (state) => {
-    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${state} breaking news&type=video&key=${apiKey}`)
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${state} breaking news&type=video&maxResults=9&key=${apiKey}`)
       .then((response) => response.json())
       .then((data) => setVideos(data.items))
       .catch((error) => console.error("Error fetching state news:", error));

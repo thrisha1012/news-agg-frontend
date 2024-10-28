@@ -41,6 +41,9 @@ function Card(props) {
   const emailSubject = `Check out this article: ${props.title}`;
   const emailBody = `I thought you might be interested in this article:\n\n${props.title}\n${props.description}\n\nRead more here: ${props.url}`;
 
+  // Conditionally render the card only if imgUrl is present
+  if (!props.imgUrl) return null;
+
   return (
     <div className="everything-card mt-10">
       <div className="everything-card flex flex-wrap p-5 gap-1 mb-1">
@@ -50,25 +53,31 @@ function Card(props) {
         >
           Save
         </button>
-        
-        <div className="share-buttons flex gap-2 mt-2">
-          <FacebookShareButton url={props.url} quote={props.title}>
-            <FacebookIcon size={32} round />
-          </FacebookShareButton>
-          <TwitterShareButton url={props.url} title={props.title}>
-            <TwitterIcon size={32} round />
-          </TwitterShareButton>
-          <WhatsappShareButton url={props.url} title={props.title}>
-            <WhatsappIcon size={32} round />
-          </WhatsappShareButton>
-
-          {/* Email Share Button */}
-          <a
-            href={`mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
-            className="email-share-button bg-blue-500 text-white py-2 px-4 rounded"
-          >
-            Share via Email
-          </a>
+        <div className="share">
+          <div className="share-buttons flex gap-2 mt-2">
+            <FacebookShareButton url={props.url} quote={props.title}>
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+            <TwitterShareButton url={props.url} title={props.title}>
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+            <WhatsappShareButton url={props.url} title={props.title}>
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+            {/* Email Share Button */}
+            <a
+              href={`mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
+              className="email-share-button"
+              aria-label="Share via Gmail"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
+                <path fill="#4285f4" d="M24 24L44 10V38H24z"/>
+                <path fill="#34a853" d="M4 38V10l20 14z"/>
+                <path fill="#fbbc05" d="M44 10H24l-4 3-4-3H4l20 14z"/>
+                <path fill="#ea4335" d="M24 24L4 10h4v28h12V28h8v10h12V10h4z"/>
+              </svg>
+            </a>
+          </div>
         </div>
         
         <b className="title">{props.title}</b>

@@ -25,7 +25,7 @@ function AllNews() {
     }
   }
 
-  let pageSize = 9;
+  let pageSize = 6;
 
   useEffect(() => {
     setIsLoading(true);

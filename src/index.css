@@ -50,7 +50,7 @@ body {
 }
 
 nav {
-    background-color: #cccefa;
+    background-color: #333;
     height: 70px;
     backdrop-filter: blur(4px);
     border-bottom: 0.1px solid grey;
@@ -58,6 +58,7 @@ nav {
     align-items: center; /* Center items vertically */
     justify-content: space-between; /* Space out items */
     padding: 0; /* Padding for nav */
+    color:white;
 }
 
 .heading {
@@ -202,7 +203,7 @@ ul li ul li a:hover {
 }
 
 .search-bar {
-    background-color: #ccc;
+    background-color: #0a0a0a;
     height: 25px; 
     width:200px;
     border: 1px solid #ccc; 
@@ -234,33 +235,37 @@ ul li ul li a:hover {
 
 .pagination-btn {
     background-color: #3ca0e7; /* Changed to blue */
-    color: white; /* Changed text color to white */
+    color: rgb(8, 8, 8); /* Changed text color to white */
     width: 130.51px;
     height: 50px;
     border-radius: 34px;
-    background-color: #ccc;
+   
 }
 
 .everything-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  color: #fff; /* White text for readability */
+  align-items: flex-start;
     width: 400px;
     height: 500px;
     border-radius: 15px;
-    overflow-y:auto;
-    overflow-x:hidden;
-    background-color:rgb(37, 37, 27);
+    overflow:hidden;
+    background-color:#333;
     box-shadow: 
-        0 0 10px rgb(37, 37, 27),
-        0 0 10px rgb(37, 37, 27),
-        0 0 10px rgb(37, 37, 27),
-        0 0 10px rgb(37, 37, 27);
+        0 0 10px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(0, 0, 0, 0.3)
+        0 0 10px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .everything-card:hover {
+    overflow-y: scroll;
+    overflow-x: hidden;
     transform: translateY(-2px);
     transition: transform 0.2s ease-in-out;
     background: var(--primary);
     box-shadow: 0 0 11px grey; 
-    background-color: grey;
+    background-color: #333;
 }
 
 .everything-card-img {
@@ -420,6 +425,7 @@ footer {
 
   
   .save-button {
+    color: #000;
     background-color: #e2e8f0;
     padding: 5px 10px;
     border: 2px solid #000;
@@ -444,5 +450,32 @@ footer {
     border-radius: 15px;
     width:70px;
 }
+.share-buttons {
+    display: flex;
+    justify-content: right; /* Move share buttons to the right */
+    gap: 5px;
+    margin-top: 10px;
+  }
 
+  .gmail-share-button {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto; /* Align to the right */
+  }
+  .gmail-share-button svg {
+    width: 32px;
+    height: 32px;
+  }
   
+  
+
+  .share{
+    position:relative;
+    top:-10px;
+    left:140px;
+  }

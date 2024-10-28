@@ -36,15 +36,13 @@ function Profile() {
   if (!user) return <div>Loading...</div>;
   
   return (
-    <div className="profile-container">
+    <div className="profile-container bg-black">
       <div className="profile-content">
         <h2>User Profile</h2>
-        <p>Name: {user.name}</p>
-        <p>Email: {user.email}</p>
+        <p className="username">Hai,{user.name}</p>
+        <p className="save">Saved Article</p>
 
-        {/* Displaying Articles */}
         <div className="articles-container">
-          <h3>Saved Articles</h3>
           {articles.length > 0 ? (
             articles.map(article => (
               <div key={article._id} className="article-card">
